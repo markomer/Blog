@@ -6,6 +6,7 @@ from django.views.generic.edit import (
 )
 
 from .models import Post
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 
@@ -18,18 +19,23 @@ class PostDetailView(DetailView):
   template_name = 'posts/detail.html'
   model = Post
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
   template_name = 'posts/new.html'
   model = Post
-  fields = ['title', 'body', 'author']
+  fields = ['title', 'body']
 
-class PostUpdateView(UpdateView):
+  def form_valid(self, form):
+    form.instance.author = self.request.user
+    return super().form_valid(form)
+    
+
+class PostUpdateView(LoginRequiredMixin, UpdateView):
   template_name = 'posts/edit.html'
   model = Post
   fields = ['title', 'body']
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
   template_name = 'posts/delete.html'
   model = Post
   success_url = reverse_lazy('post_list')
