@@ -7,7 +7,7 @@ h1 {
   padding: 10px;
 }
 
-.post-list-title,.detail-title,.new-title,.login-title,.log-out-title,.sign-up-title {
+.post-list-title,.detail-title,.new-title,.login-title,.log-out-title,.sign-up-title,.change-password-title {
   color: white;
   background-color: deepskyblue;
   background-image: linear-gradient(to right, deepskyblue, white);
